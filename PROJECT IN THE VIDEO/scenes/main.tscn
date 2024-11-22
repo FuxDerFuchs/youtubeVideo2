@@ -31,28 +31,10 @@ uv1_triplanar = true
 [sub_resource type="BoxMesh" id="BoxMesh_3qjo3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bt680"]
-render_priority = 0
-shader = ExtResource("4_5ycnc")
-shader_parameter/size = 0.81
-shader_parameter/intensity = 0.005
-shader_parameter/light_direction = Vector3(-0.483, 0.866, -0.129)
-shader_parameter/color = Color(1, 1, 1, 1)
-shader_parameter/hatch_size = 1.0
-shader_parameter/frame_time = 0.3
-shader_parameter/hatch = ExtResource("5_4pkj2")
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_ussoi"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mdtgv"]
-render_priority = 0
-shader = ExtResource("4_5ycnc")
-shader_parameter/size = 0.81
-shader_parameter/intensity = 0.005
-shader_parameter/light_direction = Vector3(-0.483, 0.866, -0.129)
-shader_parameter/color = Color(1, 1, 1, 1)
-shader_parameter/hatch_size = 3.0
-shader_parameter/frame_time = 0.3
-shader_parameter/hatch = ExtResource("5_4pkj2")
 
 [sub_resource type="SphereMesh" id="SphereMesh_p171j"]
 
@@ -81,6 +63,7 @@ environment = SubResource("Environment_8t2v5")
 
 [node name="floor" type="CSGBox3D" parent="map"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+visible = false
 material_override = SubResource("StandardMaterial3D_fqucg")
 use_collision = true
 size = Vector3(1000, 1, 1000)
