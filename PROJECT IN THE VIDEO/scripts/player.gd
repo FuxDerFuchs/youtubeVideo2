@@ -15,20 +15,6 @@ var running_speed = 2.6
 
 var running = false
 
-# Define the frame time interval
-const FRAME_TIME := 0.17	
-# Variables to keep track of the animation frame timing
-var time_accumulator := 0.0
-var last_animation := ""
-var animation_position := 0.0
-
-var time_start = 0
-var time_now = 0
-
-
-
-
-
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -42,11 +28,7 @@ func _input(event):
 		camera_mount.rotate_x(deg_to_rad(-event.relative.y) * sens_vertical)
 		camera_mount.rotation_degrees.x = clamp(camera_mount.rotation_degrees.x, -75, 85)
 
-
-
 func _physics_process(delta):
-	
-	time_accumulator += delta
 	
 	if Input.is_action_pressed("run"):
 		SPEED = running_speed
@@ -69,31 +51,16 @@ func _physics_process(delta):
 	
 	if direction:
 		if running:
-			set_animation("JogForward")
+			animation_player.play("JogForward")
 		else:
-			set_animation("Walking")
+			animation_player.play("Walking")
 		
 		visuals.look_at(position + direction)
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
 	else:
-		set_animation("Idle")
+		animation_player.play("Idle")
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	move_and_slide()
-
-# Function to update animation only at specified frame intervals
-func set_animation(animation_name):
-	var ticks_msec  = Time.get_ticks_msec();
-	if last_animation != animation_name:
-		animation_player.play(animation_name)
-		animation_player.stop()  # Pause the animation
-		last_animation = animation_name
-		animation_position = 0.0
-		time_accumulator = 0.0
-	elif time_accumulator >= FRAME_TIME:
-		animation_position += time_accumulator
-		animation_player.seek(animation_position, true)
-		animation_player.stop(true)
-		time_accumulator = float(ticks_msec % int(FRAME_TIME * 1000))/1000;
