@@ -1,15 +1,3 @@
-[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://cnyh0hjr0qjaf"]
-
-[ext_resource type="Shader" path="res://Shaders/AnimationAndCrosshatch.gdshader" id="1_4jnnm"]
-[ext_resource type="Texture2D" uid="uid://c342i5xk3dq6m" path="res://asset/textures/hatch.webp" id="2_3h5xc"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://cnyh0hjr0qjaf"]
 
 [resource]
-render_priority = 0
-shader = ExtResource("1_4jnnm")
-shader_parameter/size = 0.805
-shader_parameter/intensity = 0.615
-shader_parameter/light_direction = Vector3(-0.438, 0.866, -0.129)
-shader_parameter/color = Color(1, 1, 1, 1)
-shader_parameter/hatch_size = 1.0
-shader_parameter/frame_time = 0.3
-shader_parameter/hatch = ExtResource("2_3h5xc")

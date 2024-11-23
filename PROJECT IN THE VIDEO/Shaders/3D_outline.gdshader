@@ -1,7 +1,7 @@
 shader_type spatial;
 
-uniform sampler2D screen_texture : source_color, hint_screen_texture, filter_nearest; 
-uniform sampler2D normal_texture : source_color, hint_normal_roughness_texture, filter_nearest; 
+uniform sampler2D screen_texture : source_color, hint_screen_texture, filter_nearest;
+uniform sampler2D normal_texture : source_color, hint_normal_roughness_texture, filter_nearest;
 uniform sampler2D depth_texture : source_color, hint_depth_texture, filter_nearest;
 render_mode unshaded, fog_disabled;
 
@@ -25,21 +25,21 @@ vec3 get_normal(vec2 screen_uv)
 }
 
 void fragment() {
-	// Screen texture 
+	// Screen texture
 	vec3 original = texture(screen_texture, SCREEN_UV).rgb;
 	//Normal texture
 	vec3 normal = get_normal(SCREEN_UV);
 	//Depth
 	float depth = texture(depth_texture, SCREEN_UV).x;
-	
+
 	//Get surounding Texels
 	vec2 texel_size = 1.0 / VIEWPORT_SIZE.xy;
-	vec2 uvs[4]; //array containing the uvs of the surrounding pixels 
+	vec2 uvs[4]; //array containing the uvs of the surrounding pixels
 	uvs[0] = vec2(SCREEN_UV.x, SCREEN_UV.y + texel_size.y );
 	uvs[1] = vec2(SCREEN_UV.x, SCREEN_UV.y - texel_size.y );
 	uvs[2] = vec2(SCREEN_UV.x + texel_size.x, SCREEN_UV.y);
 	uvs[3] = vec2(SCREEN_UV.x - texel_size.x, SCREEN_UV.y);
-	
+
 	//detect edges
 	float depth_diff = 0.0;
 	float normal_sum = 0.0;
@@ -47,19 +47,18 @@ void fragment() {
 	{
 		float d = get_depth(uvs[i], INV_PROJECTION_MATRIX);
 		depth_diff += depth - d;
-		
+
 		vec3 n = get_normal(uvs[i]);
 		vec3 normal_diff = normal - n;
-		
+
 		vec3 normal_edge_bias = vec3(1.0, 1.0, 1.0);
 		float normal_bias_diff = dot(normal_diff, normal_edge_bias);
 		float normal_indicator = smoothstep(-0.01, 0.01, normal_bias_diff);
-		
+
 		normal_sum += dot(normal_diff, normal_diff) * normal_indicator;
 	}
 	float depth_edge = step(depth_treshold, depth_diff);
-	
-	float outline = depth_edge + normal_sum;	
+
+	float outline = depth_edge + normal_sum;
 	ALBEDO = mix(original, vec3(0.0), outline);
 }
-	

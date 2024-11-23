@@ -1,8 +1,6 @@
-[gd_scene load_steps=16 format=3 uid="uid://dosjeqdjv230m"]
+[gd_scene load_steps=13 format=3 uid="uid://dosjeqdjv230m"]
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_41cbc"]
-[ext_resource type="Shader" path="res://Shaders/AnimationAndCrosshatch.gdshader" id="4_5ycnc"]
-[ext_resource type="Texture2D" uid="uid://c342i5xk3dq6m" path="res://asset/textures/hatch.webp" id="5_4pkj2"]
 [ext_resource type="PackedScene" uid="uid://2vipq16e6h77" path="res://scenes/player.tscn" id="6_qbxuk"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8lbx0"]
@@ -38,17 +36,6 @@ uv1_triplanar = true
 
 [sub_resource type="SphereMesh" id="SphereMesh_p171j"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_q66q0"]
-render_priority = 0
-shader = ExtResource("4_5ycnc")
-shader_parameter/size = 0.4
-shader_parameter/intensity = 0.01
-shader_parameter/light_direction = Vector3(-0.483, 0.866, -0.129)
-shader_parameter/color = Color(1, 1, 1, 1)
-shader_parameter/hatch_size = 1.0
-shader_parameter/frame_time = 0.3
-shader_parameter/hatch = ExtResource("5_4pkj2")
-
 [node name="world" type="Node3D"]
 script = ExtResource("1_41cbc")
 
@@ -81,7 +68,6 @@ surface_material_override/0 = SubResource("ShaderMaterial_mdtgv")
 [node name="Ball" type="MeshInstance3D" parent="map"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.39623, 0.627942, 6.76813)
 mesh = SubResource("SphereMesh_p171j")
-surface_material_override/0 = SubResource("ShaderMaterial_q66q0")
 
 [node name="Player" parent="." instance=ExtResource("6_qbxuk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -0.414145, 5)
+transform = Transform3D(0.587547, 0.00356659, -0.809182, -0.0029402, 0.999993, 0.00227271, 0.809185, 0.00104384, 0.587554, 1.53265, -0.414145, 5)
